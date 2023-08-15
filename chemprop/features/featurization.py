@@ -325,19 +325,22 @@ class MolGraph:
                  atom_features_extra: np.ndarray = None,
                  bond_features_extra: np.ndarray = None,
                  overwrite_default_atom_features: bool = False,
-                 overwrite_default_bond_features: bool = False):
+                 overwrite_default_bond_features: bool = False,
+                 keep_atom_map: bool=False):
         """
         :param mol: A SMILES or an RDKit molecule.
         :param atom_features_extra: A list of 2D numpy array containing additional atom features to featurize the molecule.
         :param bond_features_extra: A list of 2D numpy array containing additional bond features to featurize the molecule.
         :param overwrite_default_atom_features: Boolean to overwrite default atom features by atom_features instead of concatenating.
         :param overwrite_default_bond_features: Boolean to overwrite default bond features by bond_features instead of concatenating.
+        :param keep_atom_map: Boolean to keep atom map numbers.
         """
         self.is_mol = is_mol(mol)
         self.is_reaction = is_reaction(self.is_mol)
         self.is_explicit_h = is_explicit_h(self.is_mol)
         self.is_adding_hs = is_adding_hs(self.is_mol)
         self.reaction_mode = reaction_mode()
+        self.is_keeping_atom_map_list = keep_atom_map
         
         # Convert SMILES to RDKit molecule if necessary
         if type(mol) == str:
